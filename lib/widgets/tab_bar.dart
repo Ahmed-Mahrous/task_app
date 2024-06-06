@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/themes/app_color.dart';
-import 'package:task_app/views/screens/all_tasks_screen.dart';
-import 'package:task_app/views/screens/done_screen.dart';
 import 'package:task_app/views/screens/not_done_screen.dart';
+import 'package:task_app/views/screens/done_screen.dart';
 
 class NavBar extends StatefulWidget {
   @override
@@ -14,7 +13,7 @@ class _NavBarState extends State<NavBar> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -38,6 +37,7 @@ class _NavBarState extends State<NavBar> with SingleTickerProviderStateMixin {
               color: AppColors.secondary,
             ),
             child: TabBar(
+              physics: const NeverScrollableScrollPhysics(),
               splashBorderRadius: BorderRadius.circular(25),
               indicatorSize: TabBarIndicatorSize.tab,
               dividerColor: Colors.transparent,
@@ -61,14 +61,11 @@ class _NavBarState extends State<NavBar> with SingleTickerProviderStateMixin {
                     // color: AppColors.secondary,
                   ),
                   child: Tab(
-                    text: 'All',
+                    text: 'Not Done',
                   ),
                 ),
 
                 // second tab [you can add an icon using the icon property]
-                Tab(
-                  text: 'Not Done',
-                ),
                 Tab(
                   text: 'Done',
                 ),
@@ -85,13 +82,9 @@ class _NavBarState extends State<NavBar> with SingleTickerProviderStateMixin {
               children: [
                 // first tab bar view widget
                 Center(
-                  child: AllTasksScreen(),
-                ),
-
-                // second tab bar view widget
-                Center(
                   child: NotDoneScreen(),
                 ),
+
                 Center(
                   child: DoneScreen(),
                 ),

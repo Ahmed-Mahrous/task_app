@@ -7,27 +7,29 @@ import 'package:task_app/widgets/date_field.dart';
 import '../shared/BloC/task_cubit.dart';
 import '../shared/BloC/task_states.dart';
 
-class CreateTaskButton extends StatefulWidget {
+class EditButton extends StatefulWidget {
+  final String docId;
+
+  const EditButton({super.key, required this.docId});
   @override
-  State<CreateTaskButton> createState() => _CreateTaskButtonState();
+  State<EditButton> createState() => _EditButtonState();
 }
 
-class _CreateTaskButtonState extends State<CreateTaskButton> {
+class _EditButtonState extends State<EditButton> {
   String? task_title;
   String? task_date;
+
   TextEditingController dateinput = TextEditingController();
   TextEditingController controller = TextEditingController();
+
+  _EditButtonState();
   // String? task_date = "Mon, 5/6/2024";
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        fixedSize: Size(MediaQuery.of(context).size.width, 53),
-        backgroundColor: AppColors.primary,
-        padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+    return IconButton(
+      icon: Icon(
+        Icons.edit,
+        color: AppColors.primary,
       ),
       onPressed: () {
         showModalBottomSheet<void>(
@@ -73,7 +75,7 @@ class _CreateTaskButtonState extends State<CreateTaskButton> {
                       //   height: 5,
                       // ),
                       Text(
-                        'Create New Task',
+                        'Edit Your Task',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -169,13 +171,15 @@ class _CreateTaskButtonState extends State<CreateTaskButton> {
                         ),
                         onPressed: () {
                           var taskCubit = BlocProvider.of<TaskCubit>(context);
-                          taskCubit.addTask(
-                              taskTitle: "$task_title", taskDate: "$task_date");
+                          taskCubit.editTask(
+                              docId: "${widget.docId}",
+                              taskTitle: "$task_title",
+                              taskDate: "$task_date");
                           Navigator.pop(context);
                           dateinput.clear();
                         },
                         child: const Text(
-                          'Save Task',
+                          'Save Edit',
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -190,11 +194,6 @@ class _CreateTaskButtonState extends State<CreateTaskButton> {
           },
         );
       },
-      child: const Text(
-        'Create Task',
-        style: TextStyle(
-            fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
-      ),
     );
   }
 }
