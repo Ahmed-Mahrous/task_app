@@ -1,20 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_app/themes/app_color.dart';
-import 'package:task_app/views/screens/done_screen.dart';
 import 'package:task_app/widgets/create_task_button.dart';
 import 'package:task_app/widgets/create_task_desktop.dart';
-import 'package:task_app/widgets/filter_chip.dart';
 import 'package:task_app/widgets/nav_bar.dart';
-
 import '../shared/BloC/task_cubit.dart';
 import '../shared/BloC/task_states.dart';
-import '../widgets/task_card.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -68,10 +63,11 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
+//get floating action button on condition of platform type
   Widget _getFAB() {
     if (Platform.isWindows) {
-      return FloatingActionButton(
-          // backgroundColor: Colors.deepOrange[800],
+      return const FloatingActionButton(
+          backgroundColor: AppColors.primary,
           onPressed: null,
           child: DesktopTaskButton());
     } else {

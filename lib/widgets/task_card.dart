@@ -1,25 +1,22 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_app/shared/BloC/task_cubit.dart';
 import 'package:task_app/themes/app_color.dart';
 import 'package:task_app/widgets/edit_button.dart';
-
 import '../shared/BloC/task_states.dart';
 
 class TaskCard extends StatefulWidget {
-  final String? task_title;
-  final String? task_date;
-  final String? task_key;
+  final String? taskTitle;
+  final String? taskDate;
+  final String? taskKey;
   final String? docId;
   final Color? checkColor;
 
-  TaskCard(
+  const TaskCard(
       {super.key,
-      this.task_title,
-      this.task_key,
-      this.task_date,
+      this.taskTitle,
+      this.taskKey,
+      this.taskDate,
       this.docId,
       this.checkColor});
 
@@ -62,29 +59,23 @@ class _TaskCardState extends State<TaskCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${widget.task_title}',
-                            style: TextStyle(
+                            '${widget.taskTitle}',
+                            style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Text(
-                            'Due Date: ${widget.task_date}',
-                            style: TextStyle(fontSize: 16, color: Colors.black),
+                            'Due Date: ${widget.taskDate}',
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.black),
                           ),
                         ],
                       ),
                       widget.checkColor == AppColors.checkColor
                           ? Row(
                               children: [
-                                // IconButton(
-                                //     onPressed: () {},
-                                //     color: AppColors.secondary,
-                                //     icon: Icon(
-                                //       Icons.edit,
-                                //       color: AppColors.primary,
-                                //     )),
                                 EditButton(docId: '${widget.docId}'),
                                 Transform.scale(
                                   scale: 1.5,
@@ -96,15 +87,14 @@ class _TaskCardState extends State<TaskCard> {
                                       if (widget.checkColor ==
                                           AppColors.checkColor) {
                                         taskCubit.addDoneTask(
-                                            taskTitle: '${widget.task_title}',
-                                            taskDate: '${widget.task_date}');
-                                        //widget.isChecked = value!;
+                                            taskTitle: '${widget.taskTitle}',
+                                            taskDate: '${widget.taskDate}');
                                         taskCubit.deleteTask(
                                             docId: '${widget.docId}');
                                       } else {
                                         taskCubit.addTask(
-                                            taskTitle: '${widget.task_title}',
-                                            taskDate: '${widget.task_date}');
+                                            taskTitle: '${widget.taskTitle}',
+                                            taskDate: '${widget.taskDate}');
                                         taskCubit.deleteDoneTask(
                                             docId: '${widget.docId}');
                                       }
@@ -133,15 +123,14 @@ class _TaskCardState extends State<TaskCard> {
                                   if (widget.checkColor ==
                                       AppColors.checkColor) {
                                     taskCubit.addDoneTask(
-                                        taskTitle: '${widget.task_title}',
-                                        taskDate: '${widget.task_date}');
-                                    //widget.isChecked = value!;
+                                        taskTitle: '${widget.taskTitle}',
+                                        taskDate: '${widget.taskDate}');
                                     taskCubit.deleteTask(
                                         docId: '${widget.docId}');
                                   } else {
                                     taskCubit.addTask(
-                                        taskTitle: '${widget.task_title}',
-                                        taskDate: '${widget.task_date}');
+                                        taskTitle: '${widget.taskTitle}',
+                                        taskDate: '${widget.taskDate}');
                                     taskCubit.deleteDoneTask(
                                         docId: '${widget.docId}');
                                   }

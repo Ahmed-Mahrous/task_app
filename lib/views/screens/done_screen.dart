@@ -8,26 +8,25 @@ import '../../themes/app_color.dart';
 import '../../widgets/task_card.dart';
 
 class DoneScreen extends StatefulWidget {
-  const DoneScreen({Key? key}) : super(key: key);
+  const DoneScreen({super.key});
 
   @override
   State<DoneScreen> createState() => _DoneScreenState();
 }
 
 class _DoneScreenState extends State<DoneScreen> {
-  CollectionReference done_tasks =
+  CollectionReference doneTasks =
       FirebaseFirestore.instance.collection('done_tasks');
   @override
   @override
   Widget build(BuildContext context) {
-    var taskCubit = BlocProvider.of<TaskCubit>(context);
     return BlocBuilder<TaskCubit, TaskState>(
       builder: (context, state) {
         return FutureBuilder<QuerySnapshot>(
-            future: done_tasks.get(),
+            future: doneTasks.get(),
             builder: (context, snapshot) {
-              return snapshot.data == null
-                  ? Center(
+              return snapshot.data!.docs.isEmpty
+                  ? const Center(
                       child: Text(
                         'No tasks yet',
                         style: TextStyle(fontSize: 20),
@@ -43,15 +42,14 @@ class _DoneScreenState extends State<DoneScreen> {
                               return Column(
                                 children: [
                                   TaskCard(
-                                    //isChecked: true,
                                     checkColor: AppColors.primary,
                                     docId: snapshot.data!.docs[index].id,
-                                    task_title: snapshot.data!.docs[index]
+                                    taskTitle: snapshot.data!.docs[index]
                                         ['task_title'],
-                                    task_date: snapshot.data!.docs[index]
+                                    taskDate: snapshot.data!.docs[index]
                                         ['task_date'],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 10,
                                   )
                                 ],

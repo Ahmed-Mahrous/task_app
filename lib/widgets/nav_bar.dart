@@ -4,6 +4,8 @@ import 'package:task_app/views/screens/not_done_screen.dart';
 import 'package:task_app/views/screens/done_screen.dart';
 
 class NavBar extends StatefulWidget {
+  const NavBar({super.key});
+
   @override
   _NavBarState createState() => _NavBarState();
 }

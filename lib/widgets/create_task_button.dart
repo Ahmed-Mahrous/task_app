@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:task_app/themes/app_color.dart';
-import 'package:task_app/widgets/date_field.dart';
-
 import '../shared/BloC/task_cubit.dart';
-import '../shared/BloC/task_states.dart';
 
 class CreateTaskButton extends StatefulWidget {
+  const CreateTaskButton({super.key});
+
   @override
   State<CreateTaskButton> createState() => _CreateTaskButtonState();
 }
 
 class _CreateTaskButtonState extends State<CreateTaskButton> {
-  String? task_title;
-  String? task_date;
-  TextEditingController dateinput = TextEditingController();
+  String? taskTitle;
+  String? taskDate;
+  TextEditingController dateInput = TextEditingController();
   TextEditingController controller = TextEditingController();
   // String? task_date = "Mon, 5/6/2024";
   @override
@@ -44,8 +43,8 @@ class _CreateTaskButtonState extends State<CreateTaskButton> {
                     right: 8,
                     bottom: MediaQuery.of(context).viewInsets.bottom),
                 child: Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.all(16),
+                  decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0),
@@ -58,9 +57,9 @@ class _CreateTaskButtonState extends State<CreateTaskButton> {
                     children: <Widget>[
                       Row(
                         children: [
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
-                            icon: Icon(Icons.close, color: Colors.red),
+                            icon: const Icon(Icons.close, color: Colors.red),
                             onPressed: () {
                               setState(() {
                                 Navigator.pop(context);
@@ -72,42 +71,41 @@ class _CreateTaskButtonState extends State<CreateTaskButton> {
                       // SizedBox(
                       //   height: 5,
                       // ),
-                      Text(
+                      const Text(
                         'Create New Task',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       TextField(
                         onChanged: (value) {
-                          task_title = value;
+                          taskTitle = value;
                           controller.clear();
                         },
                         decoration: InputDecoration(
                             filled: true,
-                            fillColor: Color(0xfff7f7f7),
-                            contentPadding: EdgeInsets.all(12),
+                            fillColor: const Color(0xfff7f7f7),
+                            contentPadding: const EdgeInsets.all(12),
                             hintText: 'Task title',
                             border: OutlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(15))),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
-                      //DateField(),
                       TextField(
                         onChanged: (value) {},
                         controller:
-                            dateinput, //editing controller of this TextField
+                            dateInput, //editing controller of this TextField
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Color(0xfff7f7f7),
-                          contentPadding: EdgeInsets.all(12),
+                          fillColor: const Color(0xfff7f7f7),
+                          contentPadding: const EdgeInsets.all(12),
                           hintText: 'Due Date',
                           border: OutlineInputBorder(
                               borderSide: BorderSide.none,
@@ -121,7 +119,7 @@ class _CreateTaskButtonState extends State<CreateTaskButton> {
                               builder: (context, child) {
                                 return Theme(
                                     data: Theme.of(context).copyWith(
-                                      colorScheme: ColorScheme.light(
+                                      colorScheme: const ColorScheme.light(
                                         primary: AppColors
                                             .primary, // header background color
                                         surface: Colors.white,
@@ -140,22 +138,16 @@ class _CreateTaskButtonState extends State<CreateTaskButton> {
                               lastDate: DateTime(2101));
 
                           if (pickedDate != null) {
-                            print(
-                                pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                            //pickedDate output format => 2021-03-10 00:00:00.000
                             String formattedDate =
                                 DateFormat('E. yyyy/MM/dd').format(pickedDate);
-                            print(
-                                formattedDate); //formatted date output using intl package =>  2021-03-16
-                            //you can implement different kind of Date Format here according to your requirement
-                            dateinput.text =
+                            dateInput.text =
                                 formattedDate; //set output date to TextField value.
-                            task_date = dateinput.text;
-                          } else {
-                            print("Date is not selected");
-                          }
+                            taskDate = dateInput.text;
+                          } else {}
                         },
                       ),
-                      Spacer(),
+                      const Spacer(),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           fixedSize:
@@ -170,9 +162,9 @@ class _CreateTaskButtonState extends State<CreateTaskButton> {
                         onPressed: () {
                           var taskCubit = BlocProvider.of<TaskCubit>(context);
                           taskCubit.addTask(
-                              taskTitle: "$task_title", taskDate: "$task_date");
+                              taskTitle: "$taskTitle", taskDate: "$taskDate");
                           Navigator.pop(context);
-                          dateinput.clear();
+                          dateInput.clear();
                         },
                         child: const Text(
                           'Save Task',

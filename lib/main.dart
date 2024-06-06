@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_app/shared/BloC/task_cubit.dart';
 import 'package:task_app/views/home_view.dart';
-
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,9 +21,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TaskCubit(),
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const HomeView(),
+        home: HomeView(),
       ),
     );
   }
