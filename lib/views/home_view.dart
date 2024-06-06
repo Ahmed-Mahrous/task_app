@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_app/themes/app_color.dart';
 import 'package:task_app/views/screens/done_screen.dart';
 import 'package:task_app/widgets/create_task_button.dart';
+import 'package:task_app/widgets/create_task_desktop.dart';
 import 'package:task_app/widgets/filter_chip.dart';
-import 'package:task_app/widgets/tab_bar.dart';
+import 'package:task_app/widgets/nav_bar.dart';
 
 import '../shared/BloC/task_cubit.dart';
 import '../shared/BloC/task_states.dart';
@@ -21,6 +24,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: _getFAB(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -45,12 +49,14 @@ class _HomeViewState extends State<HomeView> {
                       ),
                       const SizedBox(height: 16),
                       NavBar(),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: Center(
-                          child: CreateTaskButton(),
-                        ),
-                      ),
+                      Platform.isWindows
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.only(bottom: 16.0),
+                              child: Center(
+                                child: CreateTaskButton(),
+                              ),
+                            ),
                     ],
                   );
                 },
@@ -60,5 +66,16 @@ class _HomeViewState extends State<HomeView> {
         },
       ),
     );
+  }
+
+  Widget _getFAB() {
+    if (Platform.isWindows) {
+      return FloatingActionButton(
+          // backgroundColor: Colors.deepOrange[800],
+          onPressed: null,
+          child: DesktopTaskButton());
+    } else {
+      return Container();
+    }
   }
 }

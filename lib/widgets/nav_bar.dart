@@ -51,18 +51,10 @@ class _NavBarState extends State<NavBar> with SingleTickerProviderStateMixin {
               ),
               labelColor: Colors.white,
               unselectedLabelColor: AppColors.primary,
-              tabs: [
+              tabs: const [
                 // first tab [you can add an icon using the icon property]
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      25.0,
-                    ),
-                    // color: AppColors.secondary,
-                  ),
-                  child: Tab(
-                    text: 'Not Done',
-                  ),
+                Tab(
+                  text: 'Not Done',
                 ),
 
                 // second tab [you can add an icon using the icon property]
@@ -73,13 +65,13 @@ class _NavBarState extends State<NavBar> with SingleTickerProviderStateMixin {
             ),
           ),
           // tab bar view here
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
+              children: const [
                 // first tab bar view widget
                 Center(
                   child: NotDoneScreen(),
